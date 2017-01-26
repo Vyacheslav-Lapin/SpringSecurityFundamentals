@@ -1,6 +1,14 @@
 package edu.teldir.domain.entity;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Anton German &lt;AGerman@luxoft.com&gt;
@@ -9,26 +17,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TD_CONTACT")
 @AttributeOverride(name = "id", column = @Column(name = "CONTACT_ID", nullable = false))
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Contact extends DomainEntity {
     @Column(name = "CONTACT_NAME", length = 50)
     private String name;
 
     @Column(name = "CONTACT_TELNUMBER", length = 20)
     private String telephoneNumber;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
 }
