@@ -44,7 +44,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Transactional
     public Collection<String> getUsernames() {
-        return securityObjectDao.getUsernames();
+        return securityObjectDao.getUserNames();
     }
 
     @Transactional

@@ -18,7 +18,7 @@ public class SecurityObjectDaoImpl extends SimpleJdbcDaoSupport implements Secur
                 .query("select distinct authority from authorities order by authority", new StringRowMapper());
     }
 
-    public Collection<String> getUsernames() {
+    public Collection<String> getUserNames() {
         return getSimpleJdbcTemplate()
                 .query("select username from users where enabled = 1 order by username", new StringRowMapper());
     }

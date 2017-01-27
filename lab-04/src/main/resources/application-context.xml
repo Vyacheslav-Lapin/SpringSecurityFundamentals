@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
@@ -15,25 +15,26 @@
 
     <import resource="security-context.xml"/>
 
-    <jdbc:embedded-database id="dataSource">
+    <jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:db-schema.sql"/>
     </jdbc:embedded-database>
 
-    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="${jdbc.driver}"/>-->
-        <!--<property name="url" value="${jdbc.url}"/>-->
-        <!--<property name="username" value="${jdbc.username}"/>-->
-        <!--<property name="password" value="${jdbc.password}"/>-->
-    <!--</bean>-->
+    <!--<bean id="dataSource"-->
+    <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+    <!--p:driverClassName="${jdbc.driver}"-->
+    <!--p:url="${jdbc.url}"-->
+    <!--p:username="${jdbc.username}"-->
+    <!--p:password="${jdbc.password}"/>-->
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+          p:dataSource-ref="dataSource">
         <property name="annotatedClasses">
             <list>
                 <value>edu.teldir.domain.entity.Contact</value>
@@ -52,9 +53,8 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean class="edu.teldir.security.dao.impl.SecurityObjectDaoImpl">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <bean class="edu.teldir.security.dao.impl.SecurityObjectDaoImpl"
+          p:dataSource-ref="dataSource"/>
 
     <context:component-scan base-package="edu.teldir.domain.service.impl"/>
 
