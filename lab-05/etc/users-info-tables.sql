@@ -1,16 +1,17 @@
-drop table if exists authorities;
-drop table if exists users;
+DROP TABLE IF EXISTS authorities;
+DROP TABLE IF EXISTS users;
 
-create table users (
-    username        varchar(50) not null primary key,
-    password        varchar(50) not null,
-    enabled         boolean not null
-) engine = InnoDb;
+CREATE TABLE users (
+  username VARCHAR(50) NOT NULL PRIMARY KEY,
+  password VARCHAR(50) NOT NULL,
+  enabled  BOOLEAN     NOT NULL
+);
 
+CREATE TABLE authorities (
+  username  VARCHAR(50) NOT NULL,
+  authority VARCHAR(50) NOT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
+  -- UNIQUE INDEX authorities_idx_1 (username, authority)
+);
 
-create table authorities (
-    username        varchar(50) not null,
-    authority       varchar(50) not null,
-    foreign key (username) references users (username),
-    unique index authorities_idx_1 (username, authority)
-) engine = InnoDb;
+CREATE UNIQUE INDEX ON authorities (username, authority)
