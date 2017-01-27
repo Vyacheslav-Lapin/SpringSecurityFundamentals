@@ -14,6 +14,7 @@
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan base-package="edu.teldir.domain.service.impl"/>
     <context:component-scan base-package="edu.teldir.security.service.impl"/>
+    <!--<context:component-scan base-package="edu.teldir.security.dao.impl"/>-->
 
     <jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:etc/users-info-tables.sql"/>

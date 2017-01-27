@@ -17,7 +17,6 @@ CREATE TABLE authorities (
   username  VARCHAR(50) NOT NULL,
   authority VARCHAR(50) NOT NULL,
   FOREIGN KEY (username) REFERENCES users (username)
-  -- UNIQUE INDEX authorities_idx_1 (username, authority)
 );
-
+-- UNIQUE INDEX authorities_idx_1 (username, authority)
 CREATE UNIQUE INDEX ON authorities (username, authority)
